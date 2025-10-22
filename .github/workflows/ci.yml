@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ] # Trigger the workflow when code is pushed to the main branch
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Check out the repository code so the workflow can access it
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2) Install Node.js dependencies to ensure the app is healthy
+      #    (This step is optional for Docker builds but helpful as a quick health check.)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      # 3) Log in to Docker Hub using repository secrets
+      #    Make sure to set DOCKER_HUB_USERNAME and DOCKER_HUB_PASSWORD in your GitHub repo settings
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      # 4) Build and push the Docker image to Docker Hub
+      #    The image will be tagged as <username>/travel-agent-app:latest
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/travel-agent-app:latest
