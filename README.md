@@ -10,7 +10,7 @@ A simple, beginner-friendly Node.js + Express app with Docker and GitHub Actions
 ## Prerequisites
 - Node.js 18+
 - npm
-- (Optional) Docker and Docker Hub account for containerization and pushing images
+- (Optional) Docker. CI publishes the image to **GitHub Container Registry (GHCR)** by default.
 
 ## Run Locally
 1. Install dependencies:
@@ -37,38 +37,39 @@ A simple, beginner-friendly Node.js + Express app with Docker and GitHub Actions
    ```
 3. Visit `http://localhost:3000`.
 
-## CI/CD with GitHub Actions → Docker Hub
+## CI/CD with GitHub Actions → GitHub Container Registry (GHCR)
 This project includes `.github/workflows/ci.yml` which:
 - **Triggers on push to `main`**
 - **Installs dependencies** as a quick health check
-- **Logs in to Docker Hub** using repo secrets
-- **Builds and pushes** the image tagged as `<DOCKER_HUB_USERNAME>/travel-agent-app:latest`
+- **Logs in to GHCR** using GitHub’s built-in `GITHUB_TOKEN` (no extra secrets needed)
+- **Builds and pushes** the image tagged as `ghcr.io/<your-github-username>/travel-agent-app:latest`
 
 ### Setup Steps
 1. Create a new GitHub repository and push this project.
-2. In your GitHub repo settings → Secrets and variables → Actions, add:
-   - `DOCKER_HUB_USERNAME` → your Docker Hub username
-   - `DOCKER_HUB_PASSWORD` → your Docker Hub password or access token
-3. Push to `main`. The workflow will build and push the image to Docker Hub.
+2. Push to `main`. The workflow will build and push the image to **GHCR**.
+3. Optional: Make the package public so anyone can pull it:
+   - Open your package page: `https://github.com/users/<your-github-username>/packages/container/package/travel-agent-app`
+   - Go to Package settings → Change visibility to Public.
 
 ## Deploying the Docker Image to a Server
-On your target server (with Docker installed), pull and run the image:
+On your target server (with Docker installed), pull and run the GHCR image:
 ```bash
-# Log in to Docker Hub (if required)
-docker login -u <DOCKER_HUB_USERNAME>
+# If the package is public, you can pull without login
+docker pull ghcr.io/<your-github-username>/travel-agent-app:latest
 
-# Pull the latest image
-docker pull <DOCKER_HUB_USERNAME>/travel-agent-app:latest
+# If the package is private, login using a GitHub Personal Access Token (PAT) with scope read:packages
+echo <YOUR_GITHUB_PAT> | docker login ghcr.io -u <your-github-username> --password-stdin
+docker pull ghcr.io/<your-github-username>/travel-agent-app:latest
 
 # Run the container (exposes port 3000)
-docker run -d --name travel-agent-app -p 3000:3000 <DOCKER_HUB_USERNAME>/travel-agent-app:latest
+docker run -d --name travel-agent-app -p 3000:3000 ghcr.io/<your-github-username>/travel-agent-app:latest
 ```
 
 To update, pull a newer image and restart the container:
 ```bash
-docker pull <DOCKER_HUB_USERNAME>/travel-agent-app:latest
+docker pull ghcr.io/<your-github-username>/travel-agent-app:latest
 docker rm -f travel-agent-app
-docker run -d --name travel-agent-app -p 3000:3000 <DOCKER_HUB_USERNAME>/travel-agent-app:latest
+docker run -d --name travel-agent-app -p 3000:3000 ghcr.io/<your-github-username>/travel-agent-app:latest
 ```
 
 ## Project Structure
