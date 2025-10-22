@@ -1,4 +1,8 @@
-# Travel Agent CI/CD
+# 🚀 Travel Agent CI/CD
+
+[![CI](https://github.com/kataramsaikarthikeya/travel-agent-cicd/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kataramsaikarthikeya/travel-agent-cicd/actions/workflows/ci.yml)  ![Node](https://img.shields.io/badge/Node-18.x-339933?logo=node.js&logoColor=white)  ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)
+
+Published image (GHCR): `ghcr.io/kataramsaikarthikeya/travel-agent-cicd:latest`
 
 A simple, beginner-friendly Node.js + Express app with Docker and GitHub Actions CI/CD.
 
@@ -7,16 +11,33 @@ A simple, beginner-friendly Node.js + Express app with Docker and GitHub Actions
 - **GET `/packages`**: Returns a sample list of travel packages as JSON.
 - **POST `/book`**: Accepts `{ name, destination, date }` JSON and returns a confirmation message.
 
-## Prerequisites
+## 📦 Prerequisites
 - Node.js 18+
 - npm
 - (Optional) Docker. CI publishes the image to **GitHub Container Registry (GHCR)** by default.
 
-## Run Locally
+## 🧪 Run Locally
 1. Install dependencies:
    ```bash
    npm install
    ```
+2. Start the server:
+   ```bash
+   npm start
+   ```
+3. App runs at `http://localhost:3000`.
+   - `GET /` → `Welcome to Travel Agent App`
+   - `GET /packages` → JSON list of packages
+   - `POST /book` with JSON body `{ "name": "John", "destination": "Paris", "date": "2025-12-01" }`
+
+## 🚢 Active CI/CD (GHCR)
+The pipeline automatically builds and publishes the image to **GHCR** on every push to `main`.
+
+Quick pull and run:
+```bash
+docker pull ghcr.io/kataramsaikarthikeya/travel-agent-cicd:latest
+docker run -d --name travel-agent-app -p 3000:3000 ghcr.io/kataramsaikarthikeya/travel-agent-cicd:latest
+```
 
 ---
 
