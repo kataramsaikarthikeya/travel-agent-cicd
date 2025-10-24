@@ -21,6 +21,12 @@ A simple, beginner-friendly Node.js + Express app with Docker and GitHub Actions
    ```bash
    npm install
    ```
+
+## 👥 Authors
+- **Kataram Sai Karthikeya** — Maintainer
+  - GitHub: `@kataramsaikarthikeya`
+
+Landing page served at `GET /` with a modern UI showing packages, quick booking, and authors. Static assets live in `public/`.
 2. Start the server:
    ```bash
    npm start

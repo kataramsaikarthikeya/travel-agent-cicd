@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json()); // Parse JSON request bodies
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static assets
 
 // In-memory sample data
 const travelPackages = [
@@ -38,7 +40,7 @@ const travelPackages = [
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Welcome to Travel Agent App');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/packages', (req, res) => {

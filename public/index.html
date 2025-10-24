@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Agent · Explore The World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <div class="brand">✈️ Travel Agent</div>
+      <nav class="nav__links">
+        <a href="#packages">Packages</a>
+        <a href="#book">Book</a>
+        <a href="#authors">Authors</a>
+        <a class="btn btn--ghost" href="https://github.com/kataramsaikarthikeya/travel-agent-cicd" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <h1>Plan your next adventure with confidence</h1>
+          <p>
+            A tiny Node.js + Express app showcasing CI/CD with GitHub Actions and a container-first deployment flow.
+          </p>
+          <div class="hero__cta">
+            <a href="#packages" class="btn btn--primary">Explore Packages</a>
+            <a href="#book" class="btn btn--secondary">Book Now</a>
+          </div>
+          <div class="hero__meta">
+            <span>CI: <strong>GHCR</strong> · Image: <code>ghcr.io/kataramsaikarthikeya/travel-agent-cicd:latest</code></span>
+          </div>
+        </div>
+        <div class="hero__art" aria-hidden="true">
+          <div class="globe">
+            <div class="globe__ring r1"></div>
+            <div class="globe__ring r2"></div>
+            <div class="globe__ring r3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages" class="section">
+      <div class="container">
+        <h2 class="section__title">Popular Packages</h2>
+        <div id="packages-grid" class="grid"></div>
+      </div>
+    </section>
+
+    <section id="book" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title">Quick Booking</h2>
+        <form id="book-form" class="card form">
+          <div class="form__row">
+            <label for="name">Name</label>
+            <input id="name" name="name" placeholder="Your full name" required />
+          </div>
+          <div class="form__row">
+            <label for="destination">Destination</label>
+            <input id="destination" name="destination" placeholder="e.g., Paris, France" required />
+          </div>
+          <div class="form__row">
+            <label for="date">Date</label>
+            <input id="date" type="date" name="date" required />
+          </div>
+          <button class="btn btn--primary" type="submit">Confirm Booking</button>
+          <p id="book-status" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="authors" class="section">
+      <div class="container">
+        <h2 class="section__title">Authors</h2>
+        <div class="authors">
+          <div class="author card">
+            <div class="avatar">K</div>
+            <div>
+              <div class="author__name">Kataram Sai Karthikeya</div>
+              <div class="author__meta">
+                <a href="https://github.com/kataramsaikarthikeya" target="_blank" rel="noopener">@kataramsaikarthikeya</a>
+              </div>
+            </div>
+          </div>
+          <!-- Add more authors below if needed -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>© <span id="year"></span> Travel Agent · Built with Node.js, Express and Docker</div>
+      <div class="footer__links">
+        <a href="/packages">API: /packages</a>
+        <a href="https://github.com/kataramsaikarthikeya/travel-agent-cicd" target="_blank" rel="noopener">Source</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
